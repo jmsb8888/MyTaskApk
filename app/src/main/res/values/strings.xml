@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MyTaskApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="task_completed">Tareas Completadas</string>
+    <string name="pending_tasks">Tareas Pendientes</string>
+    <string name="completed_task">Tareas Completadas</string>
+    <string name="details">Detalles</string>
+    <string name="fill">Completar</string>
+    <string name="task_name">Nombre de la Tarea</string>
+    <string name="write_id">ID de Tarea: %1$s</string>
+    <string name="input_task">Ingrese actividad</string>
+    <string name="save_task">Guardar Tarea</string>
+</resources>

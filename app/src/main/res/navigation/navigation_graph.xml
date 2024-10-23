@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/homeTask">
+
+    <fragment
+        android:id="@+id/completeTask"
+        android:name="com.task.mytaskapp.screens.completeTask.CompleteTask"
+        android:label="fragment_complete_task"
+        tools:layout="@layout/fragment_complete_task" >
+        <action
+            android:id="@+id/action_completeTask_to_seeTask"
+            app:destination="@id/seeTask" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeTask"
+        android:name="com.task.mytaskapp.screens.home.HomeTask"
+        android:label="fragment_home_task"
+        tools:layout="@layout/fragment_home_task" >
+        <action
+            android:id="@+id/action_homeTask_to_seeTask"
+            app:destination="@id/seeTask" />
+        <action
+            android:id="@+id/action_homeTask_to_completeTask"
+            app:destination="@id/completeTask" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeTask"
+        android:name="com.task.mytaskapp.screens.seeTask.SeeTask"
+        android:label="fragment_see_task"
+        tools:layout="@layout/fragment_see_task" />
+</navigation>
