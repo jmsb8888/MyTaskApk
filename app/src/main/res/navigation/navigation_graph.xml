@@ -30,5 +30,18 @@
         android:id="@+id/seeTask"
         android:name="com.task.mytaskapp.screens.seeTask.SeeTask"
         android:label="fragment_see_task"
-        tools:layout="@layout/fragment_see_task" />
+        tools:layout="@layout/fragment_see_task" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue='"Nulo"' />
+        <argument
+            android:name="IsCompleted"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
 </navigation>

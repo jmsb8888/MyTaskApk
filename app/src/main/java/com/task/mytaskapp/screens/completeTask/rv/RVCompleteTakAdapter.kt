@@ -9,6 +9,7 @@ import com.task.mytaskapp.data.models.Task
 class RVCompleteTaskAdapter(
     private val completedTasks: List<Task>,
     private val onTaskNotComplete: (Int) -> Unit,
+    private val deleteTask: (Int) -> Unit,
     private val onTaskSelect: (Task) -> Unit
 ) : RecyclerView.Adapter<CompleteTaskViewHolder>() {
 
@@ -18,7 +19,7 @@ class RVCompleteTaskAdapter(
     }
 
     override fun onBindViewHolder(holder: CompleteTaskViewHolder, position: Int) {
-        holder.bind(completedTasks[position], onTaskNotComplete, onTaskSelect)
+        holder.bind(completedTasks[position], onTaskNotComplete, onTaskSelect, deleteTask)
     }
 
     override fun getItemCount(): Int = completedTasks.size

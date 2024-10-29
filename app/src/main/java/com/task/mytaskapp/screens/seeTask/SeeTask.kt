@@ -5,18 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.task.mytaskapp.R
 import com.task.mytaskapp.data.models.Task
 import com.task.mytaskapp.data.viewmodel.TaskViewModel
-import com.task.mytaskapp.data.viewmodel.TaskViewModel.Companion.DETAILS
 
 class SeeTask : Fragment() {
 
     private lateinit var taskViewModel: TaskViewModel
     private lateinit var currentTask: Task
+    private val args: SeeTaskArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +37,7 @@ class SeeTask : Fragment() {
     }
 
     private fun retrieveTaskFromArguments() {
-        currentTask = arguments?.let {
-            it.getParcelable(DETAILS)
-        }!!
+        currentTask =  Task(args.id, args.name, args.IsCompleted)
     }
 
 
@@ -44,6 +45,7 @@ class SeeTask : Fragment() {
         val taskNameTextView: TextView = view.findViewById(R.id.tvName)
         val taskStatusTextView: TextView = view.findViewById(R.id.tvIsComplete)
         val taskCompleteCheckBox: CheckBox = view.findViewById(R.id.cbSelectTask)
+        val deleteTask: ImageView = view.findViewById(R.id.ivDelete)
         val taskId: TextView = view.findViewById(R.id.tvId)
 
 
@@ -53,6 +55,7 @@ class SeeTask : Fragment() {
         taskCompleteCheckBox.setOnCheckedChangeListener { _, isChecked ->
             handleTaskCompletionChange(isChecked, taskStatusTextView)
         }
+        deleteTask(deleteTask)
     }
 
     private fun displayTaskDetails(name: TextView, statusView: TextView, isComplete: CheckBox, id: TextView) {
@@ -77,5 +80,11 @@ class SeeTask : Fragment() {
             taskViewModel.taskNotCompleted(currentTask.id)
         }
         isCompleteCheck(isComplete, isChecked)
+    }
+    private fun deleteTask(iv: ImageView) {
+        iv.setOnClickListener {
+            taskViewModel.taskDelete(currentTask.id)
+            findNavController().popBackStack()
+        }
     }
 }

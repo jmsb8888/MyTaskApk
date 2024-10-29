@@ -14,9 +14,9 @@ import com.task.mytaskapp.screens.completeTask.rv.RVCompleteTaskAdapter
 import com.task.mytaskapp.R
 import com.task.mytaskapp.data.models.Task
 import com.task.mytaskapp.data.viewmodel.TaskViewModel
-import com.task.mytaskapp.data.viewmodel.TaskViewModel.Companion.DETAILS
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class CompleteTask : Fragment() {
 
     private lateinit var taskViewModel: TaskViewModel
@@ -59,7 +59,9 @@ class CompleteTask : Fragment() {
             completedTaskAdapter = RVCompleteTaskAdapter(
                 completedTasks,
                 { taskId -> taskViewModel.taskNotCompleted(taskId) },
+                { taskId -> taskViewModel.taskDelete(taskId) },
                 { task -> navigateToTaskDetails(task) }
+
             )
             tasksRecyclerView.adapter = completedTaskAdapter
         } else {
@@ -68,9 +70,11 @@ class CompleteTask : Fragment() {
     }
 
     private fun navigateToTaskDetails(task: Task) {
-        val taskBundle = Bundle().apply {
-            putParcelable(DETAILS, task)
-        }
-        findNavController().navigate(R.id.action_completeTask_to_seeTask, taskBundle)
+        val action = CompleteTaskDirections.actionCompleteTaskToSeeTask(
+            task.id,
+            task.name,
+            task.isComplete
+        )
+        findNavController().navigate(action)
     }
 }

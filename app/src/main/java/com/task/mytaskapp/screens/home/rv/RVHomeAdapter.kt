@@ -10,6 +10,7 @@ import com.task.mytaskapp.data.models.Task
 class RVHomeAdapter(
     private var taskList: MutableList<Task>,
     private val onTaskChecked: (Task) -> Unit,
+    private val deleteTask: (Task) -> Unit,
     private val onTaskSelected: (Task) -> Unit
 ) : RecyclerView.Adapter<HomeViewHolder>() {
 
@@ -19,7 +20,7 @@ class RVHomeAdapter(
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bind(taskList[position], onTaskChecked, onTaskSelected)
+        holder.bind(taskList[position], onTaskChecked, onTaskSelected, deleteTask)
     }
 
     override fun getItemCount(): Int = taskList.size

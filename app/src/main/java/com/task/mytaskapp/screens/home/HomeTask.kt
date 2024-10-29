@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.task.mytaskapp.R
 import com.task.mytaskapp.data.models.Task
 import com.task.mytaskapp.data.viewmodel.TaskViewModel
-import com.task.mytaskapp.data.viewmodel.TaskViewModel.Companion.DETAILS
 import com.task.mytaskapp.screens.home.rv.RVHomeAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class HomeTask : Fragment() {
     private lateinit var taskViewModel: TaskViewModel
     private lateinit var taskAdapter: RVHomeAdapter
@@ -60,6 +60,7 @@ class HomeTask : Fragment() {
         taskAdapter = RVHomeAdapter(
             mutableListOf(),
             { task -> taskViewModel.completeTask(task.id) },
+            { task -> taskViewModel.taskDelete(task.id) },
             { task -> navigateToTaskDetails(task) }
         )
         recyclerViewTasks.adapter = taskAdapter
@@ -92,10 +93,12 @@ class HomeTask : Fragment() {
     }
 
     private fun navigateToTaskDetails(task: Task) {
-        val bundle = Bundle().apply {
-            putParcelable(DETAILS, task)
-        }
-        findNavController().navigate(R.id.action_homeTask_to_seeTask, bundle)
+        val action = HomeTaskDirections.actionHomeTaskToSeeTask(
+            task.id,
+            task.name,
+            task.isComplete
+        )
+        findNavController().navigate(action)
     }
 
 }

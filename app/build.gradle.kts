@@ -4,6 +4,7 @@ plugins {
     id ("kotlin-parcelize")
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -43,11 +44,16 @@ android {
 
 dependencies {
     val nav_version = "2.8.0"
+    val room_version = "2.6.1"
     implementation ("androidx.navigation:navigation-compose:$nav_version")
     implementation ("androidx.navigation:navigation-fragment:$nav_version")
     implementation ("androidx.navigation:navigation-ui:$nav_version")
     implementation ("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     androidTestImplementation ("androidx.navigation:navigation-testing:$nav_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
